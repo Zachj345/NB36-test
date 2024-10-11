@@ -1,0 +1,17 @@
+name: Trigger Sync
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger sync workflow
+      run: |
+        curl -X POST https://api.github.com/repos/your-username/your-test-repo/dispatches \
+        -H "Accept: application/vnd.github.v3+json" \
+        -H "Authorization: token ${{ secrets.PAT }}" \
+        -d '{"event_type": "nb36_update"}'
